@@ -3,6 +3,7 @@
 #include <stack>
 #include <windows.h>
 #include <cstdlib>
+#include <unistd.h>
 
 using namespace std;
 
@@ -15,11 +16,12 @@ Towers::Towers() {
 	for(int i = c; i>0; i--) {
 		m_rod1.push(i);
 	}
+	setSize(c);
+	rows = c;
 }
 
 void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int numDisks) {
-	// MAX LENGTH OF A ROD 
-	int max_length = ( 2 * getSize() ) - 1;
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	//difference of heights
 	/* 
 	    |     |     |
@@ -27,9 +29,6 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	   ***    |     |
 	  *****   |  *******    diff = numDisks - rod.size() (dif is | )
 	*/
-	int difference1 = numDisks - rod1.size();
-	int difference2 = numDisks - rod2.size();
-	int difference3 = numDisks - rod3.size();
 	
 	// do = will print a line of stars/spaces
     // hold = temp var
@@ -45,17 +44,17 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	
 	//sets the 'do' vars to 1 if printing needed
 	if(!rod1.empty()){
-		if( numDisks <= rod1.size() ) {
+		if( rows <= rod1.size() ) {
 			do1=1;
 		}
 	}
 	if(!rod2.empty()){
-		if( numDisks <= rod2.size() ) {
-			do3=1;
+		if( rows <= rod2.size() ) {
+			do2=1;
 		}
 	}
 	if(!rod3.empty()){
-		if( numDisks <= rod3.size() ) {
+		if( rows <= rod3.size() ) {
 			do3=1;
 		}
 	}
@@ -68,7 +67,8 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		rod1.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
-		spaces=getSize() - hold1; 
+		//cout << "gs : " << getSize() << endl;
+		spaces = getSize() - hold1; 
 		
 		int z1=(hold1*2);
 
@@ -88,9 +88,9 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		}	
 		
 		for(int i=0; i<z1-1; i++){
-			cout<<"\272";
+			cout<<"\334";
 		}
-		for(int i=0; i<spaces; i++)
+		for(int i=0; i<5; i++)
 		{
 			cout<<" ";
 		}
@@ -108,7 +108,9 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
+		SetConsoleTextAttribute(hConsole, 111);
 		cout<<"|";
+		SetConsoleTextAttribute(hConsole, 7);
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
@@ -116,13 +118,14 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	// every other rod prints the same way....so i shouldnt
 	// copy and paste the code but i will. im going to. 
 	// is anyone even reading this.
+	cout<<"\t";
 	if(do2==1){
 		
 		hold2=rod2.top();
 		rod2.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
-		spaces=getSize() - hold2; 
+		spaces= getSize() - hold2; 
 		
 		int z1=(hold2*2);
 
@@ -142,7 +145,7 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		}	
 		
 		for(int i=0; i<z1-1; i++){
-			cout<<"\272";
+			cout<<"\334";
 		}
 		for(int i=0; i<spaces; i++)
 		{
@@ -162,18 +165,21 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
+		SetConsoleTextAttribute(hConsole, 111);
 		cout<<"|";
+		SetConsoleTextAttribute(hConsole, 7);
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
 	}
+	cout<<"\t";
 	if(do3==1){
 		
 		hold3=rod3.top();
 		rod3.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
-		spaces=getSize() - hold1; 
+		spaces= getSize() - hold3; 
 		
 		int z1=(hold3*2);
 
@@ -193,7 +199,7 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		}	
 		
 		for(int i=0; i<z1-1; i++){
-			cout<<"\272";
+			cout<<"\334";
 		}
 		for(int i=0; i<spaces; i++)
 		{
@@ -213,12 +219,30 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
+		SetConsoleTextAttribute(hConsole, 111);
 		cout<<"|";
+		SetConsoleTextAttribute(hConsole, 7);
 		for(int x=0; x<getSize()-1; x++) {
 			cout<<" ";
 		}
 	}
 	
+	cout << endl;
+	//cout << "ROWS : " << rows << "  " << getSize() << endl;
+	rows = rows - 1;
+	
+	usleep(1000);
+	display	(rod1, rod2, rod3, m_numDisks);
+	
+	if(do1==1) {
+		rod1.push(hold1);
+	}
+	if(do2==1) {
+		rod2.push(hold2);
+	}
+	if(do3==1) {
+		rod3.push(hold3);
+	}	
 	
 }
 

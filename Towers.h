@@ -22,7 +22,7 @@ class Towers {
 		std::stack<int> m_rod2;
 		std::stack<int> m_rod3;
 		
-		int rows = getSize(); 
+		int rows;
 		
 	private :
 		// max num of discs should be like 14 idk
