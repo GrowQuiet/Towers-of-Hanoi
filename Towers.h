@@ -6,7 +6,8 @@
 class Towers {
 	public :
 		//void print() const;
-	private :
+		void solve();  //Has the computer complete the puzzles
+		private :
 		// 3 rods to move discs onto 
 		stack<int> m_rod1;
 		stack<int> m_rod2;
