@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <cstdlib>
 #include <unistd.h>
+#include <ctime>    // For time()
+#include <cstdlib>  // For srand() and rand()
 
 
 using namespace std;

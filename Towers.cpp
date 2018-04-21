@@ -1,12 +1,11 @@
 #include <iostream>
 #include "Towers.h"
 #include <stack>
-
 #include <queue>
-
 #include <windows.h>
-#include <cstdlib>
 #include <unistd.h>
+#include <ctime>    // For time()
+#include <cstdlib>  // For srand() and rand()
 
 
 using namespace std;
@@ -260,7 +259,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	//cout << "ROWS : " << rows << "  " << getSize() << endl;
 	rows = rows - 1;
 	
-	usleep(1000);
+	//usleep(1000);
 	display	(rod1, rod2, rod3, m_numDisks);
 	
 	if(do1==1) {
@@ -274,7 +273,6 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	}	
 	
 }
-
 Towers::~Towers() {
 	cout << "\nill do this later\n" ;
 }
