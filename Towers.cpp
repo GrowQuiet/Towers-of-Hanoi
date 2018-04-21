@@ -4,3 +4,8 @@
 
 using namespace std;
 
+Towers::Towers() {
+	cout << "teest " <<endl;
+	
+}
+

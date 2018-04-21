@@ -5,14 +5,25 @@
 
 class Towers {
 	public :
-		//void print() const;
+	    // Constructors + destructor
+		Towers();
+		Towers(int h);
+		~Towers();
+		// accessors
+		int getSize( ){ return numDisks; }
+		// mutators
+		
+		//functions
+		void print() const;
+		
+		// public data
+		//3 rods to move discs onto 
+		std::stack<int> m_rod1;
+		std::stack<int> m_rod2;
+		std::stack<int> m_rod3;
 	private :
-		// 3 rods to move discs onto 
-		stack<int> m_rod1;
-		stack<int> m_rod2;
-		stack<int> m_rod3;
-		// max num of discs should be like 14
-		unsigned discs;
+		// max num of discs should be like 14 idk
+		unsigned numDisks;
 };
 
 #endif /* TOWERS_H */
