@@ -1,22 +1,22 @@
 #include <iostream>
 #include "Towers.h"
 #include <stack>
-<<<<<<< HEAD
+
 #include <queue>
-=======
+
 #include <windows.h>
 #include <cstdlib>
 #include <unistd.h>
->>>>>>> 121ca1d03f3cf3479a5c7768f40a8c2ba8741135
+
 
 using namespace std;
 
-<<<<<<< HEAD
+
 void Towers::solve() 
 {
 	recSolve(numDisks,1,3,2)	
 }
-=======
+
 void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsigned usingRod)
 {
 	queue<pair<int,int>> moves;
@@ -35,7 +35,7 @@ void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsign
 	}
 	return;
 }
-=======
+
 Towers::Towers() {
 	//cout << "teest " <<endl;
 	// DEFAULT CONSTRUCTOR
@@ -275,10 +275,6 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	
 }
 
-<<<<<<< HEAD
->>>>>>> 1d0e2156d594bd7755e478535791e569a47ce737
-=======
 Towers::~Towers() {
 	cout << "\nill do this later\n" ;
 }
->>>>>>> 121ca1d03f3cf3479a5c7768f40a8c2ba8741135
