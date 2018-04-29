@@ -13,25 +13,24 @@ using namespace std;
 
 void Towers::solve() 
 {
-	recSolve(numDisks,1,3,2)	
+	buildSolution(this->m_numDisks,1,2,3);
 }
 
-void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsigned usingRod)
+void Towers::buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned  usingRod,unsigned toRod)
 {
-	queue<pair<int,int>> moves;
-	if(numberOfDisks == 1)
-	{
-		moves.push((fromRod,toRod));
+	queue<> moves;
+	if(numberOfDisks!= 0){
+		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
+		cout<<fromRod<<" "<<toRod<<endl;					   // moves the peg.
+		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
 	}
-	else
-	{
-		recSolve(numberOfDisks-1,fromRod,usingRod,toRod);
-		moves.push((fromRod, toRod));
-		recSolve(numberOfDisks-1,usingRod,toRod,fromRod);
-	}
-	for(int i = 0; i < moves.size();i++){
-		cout<<moves.pop()<<endl;
-	}
+	
+
+	return;
+}
+void Towers::move( std::stack<int> &fromRod, std::stack<int> &toRod){
+	unsigned moveDisk = fromRod.pop();   //takes disk from desired rod;
+	toRod.push(moveDisk);			  //puts disk in desired rod;
 	return;
 }
 
