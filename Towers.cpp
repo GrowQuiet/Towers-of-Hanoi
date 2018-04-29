@@ -48,9 +48,9 @@ void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::
 void Towers::playerMove(){
 	unsigned fromRod, toRod;
 	cout<< "\t Where would you like to move from and where would you like it to go?";
-	cin>> fromRod >> toRod;
-	if(this->validateMove(fromRod,toRod)){
-		switch(fromRod){
+	cin>> fromRod >> toRod;					   // takes user input
+	if(this->validateMove(fromRod,toRod)){     //checks to see if move is valid
+		switch(fromRod){						//goes over all possbile cases for the moves, clears the command prompt, does the move, and prints the resulting puzzle
 			case 1:
 				switch(toRod){
 					case 2:
@@ -99,11 +99,11 @@ void Towers::playerMove(){
 	}
 }
 void Towers::play(){
-	system("cls");
-	this->display(this->m_numDisks);
+	system("cls"); // clears teh screen
+	this->display(this->m_numDisks); //displays base game
 	while(true){
 
-		this->playerMove();
+		this->playerMove(); // asks the player to move disks until they quit or finish the puzzle
 		
 	}
 }
