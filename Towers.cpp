@@ -25,7 +25,7 @@ Towers::Towers() {
 
 void Towers::solve() 
 {
-	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);	
+	buildSolution(this->m_numDisks, this->m_rod1, this->m_rod2, this->m_rod3);	
 }
 
 void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
@@ -47,6 +47,68 @@ void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::
 	fromRod.pop(); //removes moved disk
  	return;
  }
+void Towers::playerMove(){
+	unsigned fromRod, toRod;
+	cout<< "\t Where would you like to move from and where would you like it to go?";
+	cin>> fromRod >> toRod;					   // takes user input
+	if(this->validateMove(fromRod,toRod)){     //checks to see if move is valid
+		switch(fromRod){						//goes over all possbile cases for the moves, clears the command prompt, does the move, and prints the resulting puzzle
+			case 1:
+				switch(toRod){
+					case 2:
+						system("cls");
+						move(m_rod1, m_rod2);
+						this->display(this->m_numDisks);
+						break;
+					case 3:
+						system("cls");
+						move(m_rod1, m_rod3);
+						this->display(this->m_numDisks);
+						break;
+				}
+				break;
+			case 2:
+				switch(toRod){
+					case 1:
+						system("cls");
+						move(m_rod2, m_rod1);
+						this->display(this->m_numDisks);
+						break;
+					case 3:
+						system("cls");
+						move(m_rod2, m_rod3);
+						this->display(this->m_numDisks);
+						break;
+				}
+				break;
+			case 3:
+				switch(toRod){
+					case 1:
+						system("cls");
+						move(m_rod3, m_rod1);
+						this->display(this->m_numDisks);
+						break;
+					case 2:
+						system("cls");
+						move(m_rod3, m_rod2);
+						this->display(this->m_numDisks);
+						break;
+				}
+				break;
+				default:
+					break;
+		}
+	}
+}
+void Towers::play(){
+	system("cls"); // clears teh screen
+	this->display(this->m_numDisks); //displays base game
+	while(true){
+
+		this->playerMove(); // asks the player to move disks until they quit or finish the puzzle
+		
+	}
+}
 
 void Towers::display( int numDisks ) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -279,7 +341,7 @@ void Towers::display( int numDisks ) {
 	if(do3==1) {
 		this->m_rod3.push(hold3);
 	}	
-	rows=this->getSize();
+	rows = this->getSize();
 }
 
 bool Towers::validateMove(int fromRod, int toRod){
