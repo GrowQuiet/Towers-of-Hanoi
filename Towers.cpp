@@ -28,7 +28,8 @@ void Towers::solve()
 	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);	
 }
 
-Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
+
+void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
  {
  	if(numberOfDisks!= 0){
  		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
