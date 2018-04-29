@@ -17,7 +17,7 @@ int main() {
 	//usleep(2323232323223);
 	test.display(test.getSize());
 	//test.solve();
-	test.playerMove();
+	test.play();
 	return 0;
 }
 
