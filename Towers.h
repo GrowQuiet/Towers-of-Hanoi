@@ -18,9 +18,10 @@ class Towers {
 		
 		//functions
 		void display(std::stack<int> &rod1, std::stack<int> &rod2, std::stack<int> &rod3, int numDisks);
-		//void solve();//Has the computer complete the puzzle by calling recSolve()
-		//void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsigned usingRod); //recursively builds the solution to the puzzel of NumberOfDiscs
-		bool validateMove(int fromRod, int toRod);
+		void solve();//Has the computer complete the puzzle by calling buildSolution
+		void buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod); //recursively builds the solution to the puzzel of NumberOfDiscs
+		void move( std::stack<int> &rod1, std::stack<int> &rod2); // moves a disk from one rod to another.
+    bool validateMove(int fromRod, int toRod);
 		
 		// public data
 		//3 rods to move discs onto 
