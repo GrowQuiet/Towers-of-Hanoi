@@ -18,7 +18,7 @@ class Towers {
 		
 		//functions
 		void display( int numDisks);
-		void solve();//Has the computer complete the puzzle by calling recSolve()
+		void solve();//Has the computer complete the puzzle by calling buildSolution
 		void buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod); //recursively builds the solution to the puzzel of NumberOfDiscs
 		void move( std::stack<int> &rod1, std::stack<int> &rod2); // moves a disk from one rod to another.
 		void playerMove();
