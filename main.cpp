@@ -16,8 +16,8 @@ int main() {
 	//cout << " getSize () : " << test.getSize() << endl;
 	//usleep(2323232323223);
 	test.display(test.getSize());
-	test.solve();
-	test.display(test.getSize());
+	//test.solve();
+	test.playerMove();
 	return 0;
 }
 
