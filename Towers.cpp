@@ -22,7 +22,7 @@ Towers::Towers() {
 	rows = c;
 }
 
-/*
+
 void Towers::solve() 
 {
 	recSolve(numDisks,1,3,2)	
@@ -45,7 +45,7 @@ void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsign
 		cout<<moves.pop()<<endl;
 	}
 	return;
-} */
+}
 
 void Towers::display( int numDisks ) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
