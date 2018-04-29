@@ -28,12 +28,14 @@ void Towers::solve()
 	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);	
 }
 
-
 void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
  {
  	if(numberOfDisks!= 0){
  		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
 		move(fromRod,toRod);								   // moves the peg.
+		usleep(500000);
+		system("cls");
+		this->display( this->getSize() );
  		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
  	}	
  
@@ -277,7 +279,7 @@ void Towers::display( int numDisks ) {
 	if(do3==1) {
 		this->m_rod3.push(hold3);
 	}	
-	
+	rows=this->getSize();
 }
 
 bool Towers::validateMove(int fromRod, int toRod){
