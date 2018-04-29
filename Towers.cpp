@@ -25,7 +25,7 @@ Towers::Towers() {
 
 void Towers::solve() 
 {
-	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);	
+	buildSolution(this->m_numDisks, this->m_rod1, this->m_rod2, this->m_rod3);	
 }
 
 
@@ -45,6 +45,49 @@ void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::
 	fromRod.pop(); //removes moved disk
  	return;
  }
+void playerMove(){
+	
+	cout<< "\t Where would you like to move from and where would you like it to go?"
+	cin>> fromRod >> toRod;
+	if(validateMove(fromRod,toRod){
+		switch(fromROd){
+			case 1:
+				switch(toRod){
+					case 2:
+						move(m_rod1, m_rod2);
+						this->display(this->m_numDisks);
+						break;
+					case 3:
+						move(m_rod1, m_rod3);
+						this->display(this->m_numDisks);
+						break;
+				}
+			case 2:
+				switch(toRod){
+					case 1:
+						move(m_rod2, m_rod1);
+						this->display(this->m_numDisks);
+						break;
+					case 3:
+						move(m_rod2, m_rod3);
+						this->display(this->m_numDisks);
+						break;
+				}
+			case 3:
+				switch(toRod){
+					case 1:
+						move(m_rod3, m_rod1);
+						this->display(this->m_numDisks);
+						break;
+					case 2:
+						move(m_rod3, m_rod2);
+						this->display(this->m_numDisks);
+						break;
+				}
+				
+		}
+	}
+}
 
 void Towers::display( int numDisks ) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
