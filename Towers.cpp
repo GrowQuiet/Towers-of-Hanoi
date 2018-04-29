@@ -25,30 +25,29 @@ Towers::Towers() {
 /*
 void Towers::solve() 
 {
-	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);
+	recSolve(numDisks,1,3,2)	
 }
 
-void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
+void buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned toRod,unsigned usingRod)
 {
-	//queue<> moves;
-	if(numberOfDisks!= 0){
-		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
-		move(fromRod,toRod);								   // moves the peg.
-		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
+	queue<pair<int,int>> moves;
+	if(numberOfDisks == 1)
+	{
+		moves.push((fromRod,toRod));
 	}
-	
-
-	return;
-}
-
-void Towers::move( std::stack<int> &fromRod, std::stack<int> &toRod){
-	//fromRod.pop(); 
-	toRod.push(fromRod.top());	//takes disk from desired rod and puts disk into desired rod;
-	fromRod.pop(); //removes moved disk
+	else
+	{
+		recSolve(numberOfDisks-1,fromRod,usingRod,toRod);
+		moves.push((fromRod, toRod));
+		recSolve(numberOfDisks-1,usingRod,toRod,fromRod);
+	}
+	for(int i = 0; i < moves.size();i++){
+		cout<<moves.pop()<<endl;
+	}
 	return;
 } */
 
-void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int numDisks) {
+void Towers::display( int numDisks ) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	srand(time(0));  // Initialize random number generator.
 	
@@ -66,25 +65,25 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	int do1=0, do2=0, do3=0;
 	int hold1=0, hold2=0, hold3=0; 	
 	
-	if( rod1.empty() && rod2.empty() && rod3.empty() ){
+	if( this->m_rod1.empty() && this->m_rod2.empty() && this->m_rod3.empty() ){
 		//nothing to print. print over
 		cout << endl;
 		return;
 	}
 	
 	//sets the 'do' vars to 1 if printing needed
-	if(!rod1.empty()){
-		if( rows <= rod1.size() ) {
+	if(!this->m_rod1.empty()){
+		if( rows <= this->m_rod1.size() ) {
 			do1=1;
 		}
 	}
-	if(!rod2.empty()){
-		if( rows <= rod2.size() ) {
+	if(!this->m_rod2.empty()){
+		if( rows <= this->m_rod2.size() ) {
 			do2=1;
 		}
 	}
-	if(!rod3.empty()){
-		if( rows <= rod3.size() ) {
+	if(!this->m_rod3.empty()){
+		if( rows <= this->m_rod3.size() ) {
 			do3=1;
 		}
 	}
@@ -93,15 +92,14 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	//printing if do is 1
 	if(do1==1){
 		
-		hold1=rod1.top();
-		rod1.pop(); //need to access element below, so hold the top 
+		hold1=this->m_rod1.top();
+		this->m_rod1.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
 		//cout << "gs : " << getSize() << endl;
 		spaces = getSize() - hold1; 
 		
 		int z1=(hold1*2);
-
 		
 		/*
 		    each rod has to print spaces then stars then spaces
@@ -153,8 +151,8 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	//cout << setw(getSize()*2 - 1);
 	if(do2==1){
 		
-		hold2=rod2.top();
-		rod2.pop(); //need to access element below, so hold the top 
+		hold2=this->m_rod2.top();
+		this->m_rod2.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
 		spaces= getSize() - hold2; 
@@ -210,8 +208,8 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	cout<<"\t";
 	if(do3==1){
 		
-		hold3=rod3.top();
-		rod3.pop(); //need to access element below, so hold the top 
+		hold3=this->m_rod3.top();
+		this->m_rod3.pop(); //need to access element below, so hold the top 
 			
 		int spaces = 0;
 		spaces= getSize() - hold3; 
@@ -269,16 +267,16 @@ void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int n
 	rows = rows - 1;
 	
 	//usleep(1000);
-	display	(rod1, rod2, rod3, m_numDisks);
+	display	( this->getSize() );
 	
 	if(do1==1) {
-		rod1.push(hold1);
+		this->m_rod1.push(hold1);
 	}
 	if(do2==1) {
-		rod2.push(hold2);
+		this->m_rod2.push(hold2);
 	}
 	if(do3==1) {
-		rod3.push(hold3);
+		this->m_rod3.push(hold3);
 	}	
 	
 }
