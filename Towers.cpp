@@ -22,7 +22,7 @@ Towers::Towers() {
 	rows = c;
 }
 
-/*
+
 void Towers::solve() 
 {
 	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);
@@ -46,7 +46,7 @@ void Towers::move( std::stack<int> &fromRod, std::stack<int> &toRod){
 	toRod.push(fromRod.top());	//takes disk from desired rod and puts disk into desired rod;
 	fromRod.pop(); //removes moved disk
 	return;
-} */
+}
 
 void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int numDisks) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
