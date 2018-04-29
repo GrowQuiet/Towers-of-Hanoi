@@ -7,32 +7,7 @@
 #include <ctime>    // For time()
 #include <cstdlib>  // For srand() and rand()
 
-
 using namespace std;
-
-
-void Towers::solve() 
-{
-	buildSolution(this->m_numDisks,1,2,3);
-}
-
-void Towers::buildSolution(unsigned numberOfDisks,unsigned fromRod,unsigned  usingRod,unsigned toRod)
-{
-	queue<> moves;
-	if(numberOfDisks!= 0){
-		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
-		cout<<fromRod<<" "<<toRod<<endl;					   // moves the peg.
-		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
-	}
-	
-
-	return;
-}
-void Towers::move( std::stack<int> &fromRod, std::stack<int> &toRod){
-	unsigned moveDisk = fromRod.pop();   //takes disk from desired rod;
-	toRod.push(moveDisk);			  //puts disk in desired rod;
-	return;
-}
 
 Towers::Towers() {
 	//cout << "teest " <<endl;
@@ -47,8 +22,36 @@ Towers::Towers() {
 	rows = c;
 }
 
+/*
+void Towers::solve() 
+{
+	buildSolution(this->m_numDisks,this->m_rod1,this->m_rod2,this->m_rod3);
+}
+
+void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
+{
+	//queue<> moves;
+	if(numberOfDisks!= 0){
+		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
+		move(fromRod,toRod);								   // moves the peg.
+		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
+	}
+	
+
+	return;
+}
+
+void Towers::move( std::stack<int> &fromRod, std::stack<int> &toRod){
+	//fromRod.pop(); 
+	toRod.push(fromRod.top());	//takes disk from desired rod and puts disk into desired rod;
+	fromRod.pop(); //removes moved disk
+	return;
+} */
+
 void Towers::display(stack<int> &rod1, stack<int> &rod2, stack<int> &rod3, int numDisks) {
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	srand(time(0));  // Initialize random number generator.
+	
 	//difference of heights
 	/* 
 	    |     |     |
@@ -115,11 +118,12 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		}	
 		
 		for(int i=0; i<z1-1; i++){
-			cout<<"\334";
+			SetConsoleTextAttribute(hConsole, ( (rand() % 15) + 1 ) );
+			cout<<"\270";
+			SetConsoleTextAttribute(hConsole, 7 );
 		}
-		for(int i=0; i<5; i++)
-		{
-			cout<<" ";
+		for(int i=0; i<spaces; i++) {
+		    cout<<" ";
 		}
 	} else {
 		//nothing to print besides rod
@@ -146,6 +150,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	// copy and paste the code but i will. im going to. 
 	// is anyone even reading this.
 	cout<<"\t";
+	//cout << setw(getSize()*2 - 1);
 	if(do2==1){
 		
 		hold2=rod2.top();
@@ -172,11 +177,12 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		}	
 		
 		for(int i=0; i<z1-1; i++){
+			SetConsoleTextAttribute(hConsole, ( (rand() % 15) + 1 ) );
 			cout<<"\334";
+			SetConsoleTextAttribute(hConsole, 7 );
 		}
-		for(int i=0; i<spaces; i++)
-		{
-			cout<<" ";
+		for(int i=0; i<spaces; i++) {
+		    cout<<" ";
 		}
 	} else {
 		//nothing to print besides rod
@@ -199,6 +205,8 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 			cout<<" ";
 		}
 	}
+	//cout<<"\t";
+	//cout << setw(getSize()*2 - 1);
 	cout<<"\t";
 	if(do3==1){
 		
@@ -226,11 +234,13 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		}	
 		
 		for(int i=0; i<z1-1; i++){
+			SetConsoleTextAttribute(hConsole, ( (rand() % 15) + 1 ) );
 			cout<<"\334";
+			SetConsoleTextAttribute(hConsole, 7 );
 		}
-		for(int i=0; i<spaces; i++)
-		{
-			cout<<" ";
+		
+		for(int i=0; i<spaces; i++) {
+		    cout<<" ";
 		}
 	} else {
 		//nothing to print besides rod
@@ -272,6 +282,123 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	}	
 	
 }
+
+bool Towers::validateMove(int fromRod, int toRod){
+	/* CHECKS IF MOVING FROM A ROD TO DESIRED IS LEGAL
+	        1) isnumeric?
+			2) out of range [1,3] only
+			3) check if fromRod is not empty
+			4) make sure toRod.top is > fromRod.top
+			can move if passes all tests
+			*/
+			
+	/*
+	 LOGIC IN THIS FUNCTION
+	 if ( numbers are valid inputs )
+	   if ( fromRod isnt empty )
+	     if ( toRod .top > fromRod.top or toRod is empty)
+	       retrun true
+	*/
+	
+	if ( ( fromRod > 0 && toRod > 0 ) && ( fromRod < 4 && toRod < 4 ) && ( fromRod != toRod ) ) {
+	    /* fromRod&&toRod interval [1,3] and theyre not equal to eachother */
+	    //this->m_rod1;
+		switch(fromRod){
+	    	case 1: //MOVING FROM ONE
+	    		if ( this->m_rod1.empty() ) {
+					/* EMPTY, CANNOT MOVE */
+					return false;
+				} else { 
+					/* ABLE TO MOVE */
+					switch(toRod){
+						//CANT MOVE TO ROD 1 FROM 1
+						case 2: // 1 -> 2
+							if ( this->m_rod2.empty() || ( this->m_rod2.top() > this->m_rod1.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						case 3: // 1 -> 3
+							if ( this->m_rod3.empty() || ( this->m_rod3.top() > this->m_rod1.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						default: 
+							std::cout<< "impossible to get here.\n";
+							break;
+					}					
+				}
+				break;
+	    	case 2: //MOVING FROM TWO
+	    		if ( this->m_rod2.empty() ) {
+					/* EMPTY, CANNOT MOVE */
+					return false;
+				} else {
+					/* ABLE TO MOVE */
+					switch(toRod){
+						//CANT MOVE TO ROD 2 FROM 2
+						case 1: // 2-> 1
+							if ( this->m_rod1.empty() || ( this->m_rod1.top() > this->m_rod2.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						case 3: // 2 -> 3
+							if ( this->m_rod3.empty() || ( this->m_rod3.top() > this->m_rod2.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						default: 
+							std::cout<< "impossible to get here.\n";
+							break;
+					}
+				}
+				break;
+	    	case 3: //MOVING FROM THREE
+	    		if ( this->m_rod3.empty() ) {
+					/* EMPTY, CANNOT MOVE */
+					return false;
+				} else {
+					/* ABLE TO MOVE */
+					switch(toRod){
+						//CANT MOVE TO ROD 3 FROM 3
+						case 1: // 3-> 1
+							if ( this->m_rod1.empty() || ( this->m_rod1.top() > this->m_rod3.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						case 2: // 3-> 2
+							if ( this->m_rod2.empty() || ( this->m_rod2.top() > this->m_rod3.top() ) ){
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						default: 
+							std::cout<< "impossible to get here.\n";
+							break;
+					}
+				}
+				break;
+	    	default: 
+	    		std :: cout << "invalid input but impossible to get here. \n";
+	    		break;
+		}
+		return true;
+	}
+	//will never get here
+	return false;
+}
+
 Towers::~Towers() {
 	cout << "\nill do this later\n" ;
 }
+
