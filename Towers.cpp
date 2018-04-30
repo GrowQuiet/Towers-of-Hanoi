@@ -32,9 +32,10 @@ void Towers::solve()
 void Towers::buildSolution(unsigned numberOfDisks,std::stack<int> &fromRod,std::stack<int> &usingRod,std::stack<int> &toRod)
  {
  	if(numberOfDisks!= 0){
- 		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle, or second, peg.
+ 		buildSolution(numberOfDisks-1,fromRod,toRod,usingRod); //moves top disks to the middle(second) peg.
 		move(fromRod,toRod);								   // moves the peg.
- 		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final, or third, peg.
+		this->display(this->getSize());
+ 		buildSolution(numberOfDisks-1,usingRod,fromRod,toRod); //moves bottom disk to final(third) peg.
  	}	
  
  	return;
@@ -101,7 +102,7 @@ void Towers::playerMove(){
 void Towers::play(){
 	system("cls"); // clears teh screen
 	this->display(this->m_numDisks); //displays base game
-	while(true){
+	while(true){				/*----------------------------------------------- Have to create win condition & quit condition.------------------------------------*/
 
 		this->playerMove(); // asks the player to move disks until they quit or finish the puzzle
 		
