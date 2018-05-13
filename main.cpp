@@ -1,23 +1,20 @@
 #include <iostream>
-#include "Towers.h"
 #include <stack>
 #include <windows.h>
 #include <cstdlib>
 #include <unistd.h>
 #include <ctime>    // For time()
 #include <cstdlib>  // For srand() and rand()
-
+#include "Towers.h"
+#include "login.h"
 
 using namespace std;
 
 int main() {
-	
-	Towers test;
-	//cout << " getSize () : " << test.getSize() << endl;
-	//usleep(2323232323223);
-	test.display(test.getSize());
-	//test.solve();
-	test.play();
+	login test;
+	test.print_menu();
 	return 0;
 }
+
+
 
