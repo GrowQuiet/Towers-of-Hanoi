@@ -1,0 +1,14 @@
+NEED :
+    1) windows
+    2) dev orwell c++ IDE
+        ( https://sourceforge.net/projects/orwelldevcpp/ )
+    3) a good heart ;)
+
+HOW TO RUN :
+    1) open up the Project2.Dev with Dev Orwell C++ IDe
+    2) Hit f12 to build the project.
+    3) hit f11 to compile and run
+    4) have fun!!
+
+** NOTE :
+    OTHER COMPILERS MAY WORK, BUT ARE NOT GARUNTEED. WORK AT YOUR OWN RISK
